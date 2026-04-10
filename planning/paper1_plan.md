@@ -36,6 +36,8 @@ Question mapping table with columns:
 Marking scheme content organized by syllabus structure:
 - Topic → Sub-topic → Sub-sub-topic
 - Contains key answers, expected responses, and mark allocations
+- **Question headers use the description from the questions file** (e.g., "State the number of bits in a nibble...") instead of question references (e.g., "Q1a (S25 V1)")
+- **Deduplication**: When multiple questions have similar/identical answers, consolidate into a single entry with all relevant bullet points (avoid repeating the same answer multiple times)
 
 ## Syllabus Coverage (Paper 1 - Topics 1-6)
 
@@ -82,8 +84,9 @@ Marking scheme content organized by syllabus structure:
 3. Map each sub-question to syllabus topics
 4. Assess AO1/AO2/AO3 difficulty
 5. Generate one-sentence description
-6. Create `paper1_[year]_questions.md` table
-7. Create `paper1_[year]_answers.md` with MS content organized by syllabus
+6. **Deduplicate answers**: Merge questions with similar/identical answers into single entries
+7. Create `paper1_[year]_questions.md` table
+8. Create `paper1_[year]_answers.md` with MS content organized by syllabus (using descriptions as headers)
 
 ## Years to Process
 - [x] 2025 (S25)

@@ -90,7 +90,22 @@ Marking scheme content organized by syllabus structure:
 
 ## Years to Process
 - [x] 2025 (S25)
-- [ ] 2024 (W24, S24)
-- [ ] 2023 (W23, S23)
-- [ ] 2022 (W22, S22)
-- [ ] 2021 (W21, S21)
+- [x] 2024 (W24, S24)
+- [x] 2023 (W23, S23)
+- [x] 2022 (W22, S22)
+- [x] 2021 (W21, S21)
+
+## Completed Files
+| Year | Questions File | Answers File |
+|------|---------------|--------------|
+| 2025 | `markdown/paper1_2025_questions.md` | `markdown/paper1_2025_answers.md` |
+| 2024 | `markdown/paper1_2024_questions.md` | `markdown/paper1_2024_answers.md` |
+| 2023 | `markdown/paper1_2023_questions.md` | `markdown/paper1_2023_answers.md` |
+| 2022 | `markdown/paper1_2022_questions.md` | `markdown/paper1_2022_answers.md` |
+| 2021 | `markdown/paper1_2021_questions.md` | `markdown/paper1_2021_answers.md` |
+
+## Master Consolidated Files
+| File | Description | Lines |
+|------|-------------|-------|
+| `markdown/paper1_master_questions.md` | All questions aggregated by topic/sub-topic/sub-sub-topic (2021-2025) | ~1635 |
+| `markdown/paper1_master_answers.md` | All answers deduplicated and consolidated by topic (2021-2025) | ~1414 |

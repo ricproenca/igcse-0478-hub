@@ -1,19 +1,25 @@
 # Paper 1 Analysis Plan
 
 ## Objective
-Analyze all 2025 Paper 1 exam questions and map them to the syllabus structure.
+Analyze all Paper 1 exam questions and map them to the syllabus structure. Create one pair of files (questions + answers) for each year.
 
 ## Files to Process
 
 ### Input Files (Paper 1 - Computer Systems)
 | Type | Files |
 |------|-------|
-| Question Papers | `docs/papers_p1/0478_s25_qp_11.pdf`, `0478_s25_qp_12.pdf`, `0478_s25_qp_13.pdf` |
-| Marking Schemes | `docs/papers_p1/0478_s25_ms_11.pdf`, `0478_s25_ms_12.pdf`, `0478_s25_ms_13.pdf` |
+| Question Papers | `docs/papers_p1/0478_[series]_qp_[variant].pdf` |
+| Marking Schemes | `docs/papers_p1/0478_[series]_ms_[variant].pdf` |
 
-## Output Files
+### Output Files (Per Year)
+| File | Description |
+|------|-------------|
+| `markdown/paper1_[year]_questions.md` | Question mapping table |
+| `markdown/paper1_[year]_answers.md` | Marking scheme content by syllabus |
 
-### 1. `markdown/paper1_questions.md`
+## Output File Structure
+
+### Questions File (`markdown/paper1_[year]_questions.md`)
 Question mapping table with columns:
 - Paper (e.g., S25 V1)
 - Question (e.g., Q1)
@@ -26,7 +32,7 @@ Question mapping table with columns:
 - Difficulty (AO1, AO2, AO3)
 - Description (one-sentence summary)
 
-### 2. `markdown/paper1_answers.md`
+### Answers File (`markdown/paper1_[year]_answers.md`)
 Marking scheme content organized by syllabus structure:
 - Topic → Sub-topic → Sub-sub-topic
 - Contains key answers, expected responses, and mark allocations
@@ -70,11 +76,18 @@ Marking scheme content organized by syllabus structure:
 | AO2 | Apply knowledge and understanding to given contexts | 40% |
 | AO3 | Evaluate, make reasoned judgements, present conclusions | 20% |
 
-## Processing Steps
-1. Read QP PDFs → Extract question structure (Q#, alineas, sub-alineas, marks)
-2. Read MS PDFs → Extract answer content
+## Processing Steps (Per Year)
+1. Read QP PDFs for the year → Extract question structure (Q#, alineas, sub-alineas, marks)
+2. Read MS PDFs for the year → Extract answer content
 3. Map each sub-question to syllabus topics
 4. Assess AO1/AO2/AO3 difficulty
 5. Generate one-sentence description
-6. Create `paper1_questions.md` table
-7. Create `paper1_answers.md` with MS content organized by syllabus
+6. Create `paper1_[year]_questions.md` table
+7. Create `paper1_[year]_answers.md` with MS content organized by syllabus
+
+## Years to Process
+- [x] 2025 (S25)
+- [ ] 2024 (W24, S24)
+- [ ] 2023 (W23, S23)
+- [ ] 2022 (W22, S22)
+- [ ] 2021 (W21, S21)

@@ -5,7 +5,7 @@ Analyze all Paper 2 exam questions and map them to the syllabus structure. Creat
 
 ## Files to Process
 
-### Input Files (Paper 2 - Algorithms, Programming, Databases)
+### Input Files (Paper 2 - Algorithms, Programming and Logic)
 | Type | Files |
 |------|-------|
 | Question Papers | `docs/papers_p2/0478_[series]_qp_[variant].pdf` |
@@ -21,8 +21,8 @@ Analyze all Paper 2 exam questions and map them to the syllabus structure. Creat
 
 ### Questions File (`markdown/paper2_[year]_questions.md`)
 Question mapping table with columns:
-- Paper (e.g., S24 V1)
-- Question (e.g., Q1)
+- Paper (e.g., S25 V1)
+- Question (e.g., Q7)
 - Alinea (e.g., a, b, c)
 - Sub-alinea (e.g., i, ii, iii)
 - Marks
@@ -36,45 +36,51 @@ Question mapping table with columns:
 Marking scheme content organized by syllabus structure:
 - Topic → Sub-topic → Sub-sub-topic
 - Contains key answers, expected responses, and mark allocations
-- **Question headers use the description from the questions file** instead of question references
-- **Deduplication**: When multiple questions have similar/identical answers, consolidate into a single entry
+- **Question headers use the description from the questions file** (e.g., "Write pseudocode to calculate the average of...") instead of question references (e.g., "Q7a (S25 V1)")
+- **Deduplication**: When multiple questions have similar/identical answers, consolidate into a single entry with all relevant bullet points (avoid repeating the same answer multiple times)
 
 ## Syllabus Coverage (Paper 2 - Topics 7-11)
 
 ### 7. Algorithm Design and Problem-Solving
 - 7.1 Program Development Life Cycle
 - 7.2 Problem Decomposition
-- 7.3 Algorithm Design Methods (structure diagrams, flowcharts, pseudocode)
-- 7.4 Standard Methods of Solution (linear search, bubble sort, totalling, counting, max/min/avg)
+- 7.3 Algorithm Design Methods
+- 7.4 Standard Methods of Solution
 - 7.5 Validation and Verification
-- 7.6 Testing (normal, abnormal, extreme, boundary test data)
+- 7.6 Testing
 - 7.7 Trace Tables
 - 7.8 Error Identification
 
 ### 8. Programming
-- 8.1 Programming Concepts (variables, data types, input/output, sequence, selection, iteration, string handling)
-- 8.2 Arrays (1D and 2D arrays)
-- 8.3 File Handling (open, close, read, write)
+- 8.1 Programming Concepts
+- 8.2 Arrays
+- 8.3 File Handling
 
 ### 9. Databases
-- 9.1 Database Design (fields, records, data types, primary key)
-- 9.2 SQL Queries (SELECT, FROM, WHERE, ORDER BY, SUM, COUNT)
+- 9.1 Database Design
+- 9.2 SQL Queries
 
 ### 10. Boolean Logic
-- 10.1 Logic Gates (NOT, AND, OR, NAND, NOR, XOR)
-- 10.2 Logic Circuits (circuits from statements/truth tables, truth tables, logic expressions)
+- 10.1 Logic Gates
+- 10.2 Logic Circuits
 
-### 11. Scenario Based Algorithm
-- Last question from every paper variant (may be Q8, Q9, Q10, Q11, Q12 or Q13 depending on paper)
-- 15-mark unseen scenario question requiring **pseudocode/programming code**
-- Scenario-based algorithm writing with arrays, loops, and calculations
+### 11. Scenario-Based Algorithm
+- 11.1 Writing Pseudocode for Context Scenario
 
 ## Assessment Objectives
 | Code | Description | Weighting |
 |------|-------------|-----------|
-| AO1 | Demonstrate knowledge and understanding of the principles and concepts | 30% |
-| AO2 | Apply knowledge and understanding to given contexts | 30% |
-| AO3 | Evaluate, make reasoned judgements, present conclusions | 40% |
+| AO1 | Demonstrate knowledge and understanding of the principles and concepts | 40% |
+| AO2 | Apply knowledge and understanding to given contexts | 40% |
+| AO3 | Evaluate, make reasoned judgements, present conclusions | 20% |
+
+## Paper Structure (75 marks total)
+| Question(s) | Topic | Marks |
+|-------------|-------|-------|
+| Q1-Q5 | Topics 7-10 (various) | ~60 marks |
+| Q6/Q7 | Topic 11: Scenario-Based Algorithm | 15 marks |
+
+**Note:** Topic 11 (Scenario-Based Algorithm) appears as the final question on each paper, worth 15 marks, requiring students to design pseudocode for a given real-world scenario.
 
 ## Processing Steps (Per Year)
 1. Read QP PDFs for the year → Extract question structure (Q#, alineas, sub-alineas, marks)
@@ -87,22 +93,58 @@ Marking scheme content organized by syllabus structure:
 8. Create `paper2_[year]_answers.md` with MS content organized by syllabus (using descriptions as headers)
 
 ## Years to Process
-- [ ] 2024 (W24, S24, M24)
-- [ ] 2023 (W23, S23, M23)
-- [ ] 2022 (W22, S22, M22)
-- [ ] 2021 (W21, S21, M21)
 
-Note: 2025 papers not available in dataset
+### 2024 ✅ (Winter 2024 + Summer 2024)
+| Variant | Question Paper | Marking Scheme |
+|---------|---------------|---------------|
+| V1 | `0478_w24_qp_21.pdf` | `0478_w24_ms_21.pdf` |
+| V2 | `0478_w24_qp_22.pdf` | `0478_w24_ms_22.pdf` |
+| V3 | `0478_w24_qp_23.pdf` | `0478_w24_ms_23.pdf` |
+| V4 | `0478_s24_qp_21.pdf` | `0478_s24_ms_21.pdf` |
+| V5 | `0478_s24_qp_22.pdf` | `0478_s24_ms_22.pdf` |
+| V6 | `0478_s24_qp_23.pdf` | `0478_s24_ms_23.pdf` |
 
-## Completed Files
+### 2023 (Winter 2023 + Summer 2023)
+| Variant | Question Paper | Marking Scheme |
+|---------|---------------|---------------|
+| V1 | `0478_w23_qp_21.pdf` | `0478_w23_ms_21.pdf` |
+| V2 | `0478_w23_qp_22.pdf` | `0478_w23_ms_22.pdf` |
+| V3 | `0478_w23_qp_23.pdf` | `0478_w23_ms_23.pdf` |
+| V4 | `0478_s23_qp_21.pdf` | `0478_s23_ms_21.pdf` |
+| V5 | `0478_s23_qp_22.pdf` | `0478_s23_ms_22.pdf` |
+| V6 | `0478_s23_qp_23.pdf` | `0478_s23_ms_23.pdf` |
+
+### 2022 (Winter 2022 + Summer 2022)
+| Variant | Question Paper | Marking Scheme |
+|---------|---------------|---------------|
+| V1 | `0478_w22_qp_21.pdf` | `0478_w22_ms_21.pdf` |
+| V2 | `0478_w22_qp_22.pdf` | `0478_w22_ms_22.pdf` |
+| V3 | `0478_w22_qp_23.pdf` | `0478_w22_ms_23.pdf` |
+| V4 | `0478_s22_qp_21.pdf` | `0478_s22_ms_21.pdf` |
+| V5 | `0478_s22_qp_22.pdf` | `0478_s22_ms_22.pdf` |
+| V6 | `0478_s22_qp_23.pdf` | `0478_s22_ms_23.pdf` |
+
+### 2021 (Winter 2021 + Summer 2021)
+| Variant | Question Paper | Marking Scheme |
+|---------|---------------|---------------|
+| V1 | `0478_w21_qp_21.pdf` | `0478_w21_ms_21.pdf` |
+| V2 | `0478_w21_qp_22.pdf` | `0478_w21_ms_22.pdf` |
+| V3 | `0478_w21_qp_23.pdf` | `0478_w21_ms_23.pdf` |
+| V4 | `0478_s21_qp_21.pdf` | `0478_s21_ms_21.pdf` |
+| V5 | `0478_s21_qp_22.pdf` | `0478_s21_ms_22.pdf` |
+| V6 | `0478_s21_qp_23.pdf` | `0478_s21_ms_23.pdf` |
+
+**Note:** 2025 papers may not be available yet.
+
+## Output Files Overview
 | Year | Questions File | Answers File |
 |------|---------------|--------------|
 | 2024 | `markdown/paper2_2024_questions.md` | `markdown/paper2_2024_answers.md` |
-| 2023 | | |
-| 2022 | | |
-| 2021 | | |
+| 2023 | `markdown/paper2_2023_questions.md` | `markdown/paper2_2023_answers.md` |
+| 2022 | `markdown/paper2_2022_questions.md` | `markdown/paper2_2022_answers.md` |
+| 2021 | `markdown/paper2_2021_questions.md` | `markdown/paper2_2021_answers.md` |
 
-## Master Consolidated Files (After Processing)
+## Master Consolidated Files (Future)
 | File | Description |
 |------|-------------|
 | `markdown/paper2_master_questions.md` | All questions aggregated by topic/sub-topic/sub-sub-topic (2021-2024) |

@@ -207,28 +207,73 @@ This document maps all questions from the 2024 Paper 1 exams to the syllabus str
 
 ## Summary Statistics
 
-### Questions by Topic
-| Topic | Number of Sub-questions |
-|-------|------------------------|
-| 1. Data Representation | 55 |
-| 2. Data Transmission | 32 |
-| 3. Hardware | 45 |
-| 4. Software | 21 |
-| 5. The Internet and its Uses | 22 |
-| 6. Automated and Emerging Technologies | 19 |
+### Questions by Sub-topic
+| Topic | Sub-topic | Questions | Marks |
+|-------|-----------|-----------|-------|
+| 1. Data Representation | 1.1 Number Systems | 32 | 98 |
+| 1. Data Representation | 1.2 Text, Sound and Images | 11 | 28 |
+| 1. Data Representation | 1.3 Data Storage and Compression | 12 | 30 |
+| 2. Data Transmission | 2.1 Types and Methods | 14 | 44 |
+| 2. Data Transmission | 2.2 Methods of Error Detection | 13 | 48 |
+| 2. Data Transmission | 2.3 Encryption | 5 | 17 |
+| 3. Hardware | 3.1 Computer Architecture | 22 | 75 |
+| 3. Hardware | 3.2 Input and Output Devices | 11 | 29 |
+| 3. Hardware | 3.3 Data Storage | 11 | 35 |
+| 3. Hardware | 3.4 Network Hardware | 1 | 3 |
+| 4. Software | 4.1 Types of Software | 16 | 52 |
+| 4. Software | 4.2 Translators and IDEs | 5 | 16 |
+| 5. The Internet | 5.1 The Internet and WWW | 16 | 50 |
+| 5. The Internet | 5.2 Digital Currency | 1 | 4 |
+| 5. The Internet | 5.3 Cyber Security | 5 | 16 |
+| 6. Automated Systems | 6.1 Automated Systems | 8 | 24 |
+| 6. Automated Systems | 6.2 Robotics | 5 | 16 |
+| 6. Automated Systems | 6.3 Artificial Intelligence | 6 | 19 |
+
+### Questions by Topic (with marks)
+| Topic | Questions | Total Marks |
+|-------|-----------|------------|
+| 1. Data Representation | 55 | 156 |
+| 2. Data Transmission | 32 | 109 |
+| 3. Hardware | 45 | 142 |
+| 4. Software | 21 | 68 |
+| 5. The Internet and its Uses | 22 | 70 |
+| 6. Automated and Emerging Technologies | 19 | 59 |
+| **Total** | **194** | **604** |
+
+### Visual Distribution
+
+#### Questions by Topic
+```
+1. Data Representation:        █████████████████████████████████  55 (28%)
+2. Data Transmission:         ██████████████████░░░░░░░░░░░░░░  32 (16%)
+3. Hardware:                  █████████████████████████░░░░░░░  45 (23%)
+4. Software:                  ████████████░░░░░░░░░░░░░░░░░░░  21 (11%)
+5. The Internet and its Uses:  ████████████░░░░░░░░░░░░░░░░░░  22 (11%)
+6. Automated Technologies:     ██████████░░░░░░░░░░░░░░░░░░░░  19 (10%)
+```
+
+#### Marks by Topic
+```
+1. Data Representation:        ██████████████████████░░░░░░░░  156 (26%)
+2. Data Transmission:         █████████████████░░░░░░░░░░░░░░  109 (18%)
+3. Hardware:                  ██████████████████████████░░░░  142 (24%)
+4. Software:                  ███████████░░░░░░░░░░░░░░░░░░  68 (11%)
+5. The Internet and its Uses:  ████████████░░░░░░░░░░░░░░░░░  70 (12%)
+6. Automated Technologies:     █████████░░░░░░░░░░░░░░░░░░░░  59 (10%)
+```
 
 ### Questions by Assessment Objective
-| Assessment Objective | Count | Percentage |
-|---------------------|-------|------------|
-| AO1 | 72 | 45% |
-| AO2 | 85 | 53% |
-| AO3 | 3 | 2% |
+| AO | Count | Percentage | Visual |
+|----|-------|------------|--------|
+| AO1 | 86 | 44% | ██████████████████████████░░░░░░░░ 44% |
+| AO2 | 104 | 54% | ████████████████████████████████░░░ 54% |
+| AO3 | 4 | 2% | █░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░  2% |
 
-### Questions by Difficulty (Estimated)
-| Difficulty | Count |
-|------------|-------|
-| Easy (AO1 recall) | 72 |
-| Medium (AO2 application) | 85 |
-| Hard (AO3 evaluation) | 3 |
+### Difficulty Breakdown
+| Difficulty | Count | Visual |
+|------------|-------|--------|
+| Easy (AO1 recall) | 86 | ██████████████████████████░░░░░░░░ 44% |
+| Medium (AO2 application) | 104 | ████████████████████████████████░░░ 54% |
+| Hard (AO3 evaluation) | 4 | █░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░  2% |
 
 *Note: Actual difficulty may vary based on question context and mark allocation.*

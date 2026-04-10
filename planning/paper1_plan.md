@@ -90,7 +90,7 @@ Marking scheme content organized by syllabus structure:
 
 ## Years to Process
 - [x] 2025 (S25)
-- [ ] 2024 (W24, S24)
+- [x] 2024 (W24, S24)
 - [ ] 2023 (W23, S23)
 - [ ] 2022 (W22, S22)
 - [ ] 2021 (W21, S21)

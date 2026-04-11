@@ -144,8 +144,8 @@ Marking scheme content organized by syllabus structure:
 | 2022 | `markdown/paper2_2022_questions.md` | `markdown/paper2_2022_answers.md` |
 | 2021 | `markdown/paper2_2021_questions.md` | `markdown/paper2_2021_answers.md` |
 
-## Master Consolidated Files (Future)
+## Master Consolidated Files ✅
 | File | Description |
 |------|-------------|
-| `markdown/paper2_master_questions.md` | All questions aggregated by topic/sub-topic/sub-sub-topic (2021-2024) |
+| `markdown/paper2_master_questions.md` | All questions aggregated by topic/sub-topic/sub-sub-topic (2021-2024), with summary statistics (354Q, 1304M) |
 | `markdown/paper2_master_answers.md` | All answers deduplicated and consolidated by topic (2021-2024) |

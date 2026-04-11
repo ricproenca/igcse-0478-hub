@@ -114,7 +114,7 @@ Marking scheme content organized by syllabus structure:
 | V5 | `0478_s23_qp_22.pdf` | `0478_s23_ms_22.pdf` |
 | V6 | `0478_s23_qp_23.pdf` | `0478_s23_ms_23.pdf` |
 
-### 2022 (Winter 2022 + Summer 2022)
+### 2022 ✅ (Winter 2022 + Summer 2022)
 | Variant | Question Paper | Marking Scheme |
 |---------|---------------|---------------|
 | V1 | `0478_w22_qp_21.pdf` | `0478_w22_ms_21.pdf` |

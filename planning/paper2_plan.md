@@ -74,13 +74,21 @@ Marking scheme content organized by syllabus structure:
 | AO2 | Apply knowledge and understanding to given contexts | 40% |
 | AO3 | Evaluate, make reasoned judgements, present conclusions | 20% |
 
-## Paper Structure (75 marks total)
+## Paper Structure
+
+### 2023–2024 format (75 marks total)
 | Question(s) | Topic | Marks |
 |-------------|-------|-------|
-| Q1-Q5 | Topics 7-10 (various) | ~60 marks |
-| Q6/Q7 | Topic 11: Scenario-Based Algorithm | 15 marks |
+| Q1–Q11/Q12 | Topics 7–10 (various) | ~60 marks |
+| Q10/Q11/Q12 | Topic 11: Scenario-Based Algorithm | 15 marks |
 
-**Note:** Topic 11 (Scenario-Based Algorithm) appears as the final question on each paper, worth 15 marks, requiring students to design pseudocode for a given real-world scenario.
+### 2021–2022 format (50 marks total)
+| Section | Topic | Marks |
+|---------|-------|-------|
+| Section A (Q1, multi-part) | Topic 11: Scenario-Based Algorithm (pre-release) | ~20 marks |
+| Section B (Q2–Q6/Q7) | Topics 7–10 (various unseen) | ~30 marks |
+
+**Note:** Topic 10 (Boolean Logic) was introduced from 2023 onwards and does not appear in 2021–2022 papers.
 
 ## Processing Steps (Per Year)
 1. Read QP PDFs for the year → Extract question structure (Q#, alineas, sub-alineas, marks)
@@ -136,16 +144,22 @@ Marking scheme content organized by syllabus structure:
 
 **Note:** 2025 papers may not be available yet.
 
-## Output Files Overview
+## Years to Process
+- [x] 2024 (W24 V1–V3, S24 V1–V3)
+- [x] 2023 (W23 V1–V3, S23 V1–V3)
+- [x] 2022 (W22 V1–V3, S22 V1–V3)
+- [x] 2021 (W21 V1–V3, S21 V1–V3)
+
+## Completed Files
 | Year | Questions File | Answers File |
 |------|---------------|--------------|
-| 2024 | `markdown/paper2_2024_questions.md` | `markdown/paper2_2024_answers.md` |
-| 2023 | `markdown/paper2_2023_questions.md` | `markdown/paper2_2023_answers.md` |
-| 2022 | `markdown/paper2_2022_questions.md` | `markdown/paper2_2022_answers.md` |
-| 2021 | `markdown/paper2_2021_questions.md` | `markdown/paper2_2021_answers.md` |
+| 2024 | `markdown/paper2_2024_questions.md` ✅ | `markdown/paper2_2024_answers.md` ✅ |
+| 2023 | `markdown/paper2_2023_questions.md` ✅ | `markdown/paper2_2023_answers.md` ✅ |
+| 2022 | `markdown/paper2_2022_questions.md` ✅ | `markdown/paper2_2022_answers.md` ✅ |
+| 2021 | `markdown/paper2_2021_questions.md` ✅ | `markdown/paper2_2021_answers.md` ✅ |
 
 ## Master Consolidated Files ✅
-| File | Description |
-|------|-------------|
-| `markdown/paper2_master_questions.md` | All questions aggregated by topic/sub-topic/sub-sub-topic (2021-2024), with summary statistics (354Q, 1304M) |
-| `markdown/paper2_master_answers.md` | All answers deduplicated and consolidated by topic (2021-2024) |
+| File | Description | Lines |
+|------|-------------|-------|
+| `markdown/paper2_master_questions.md` | All questions aggregated by topic/sub-topic/sub-sub-topic (2021-2024), with summary statistics (354Q, 1304M) | ~767 |
+| `markdown/paper2_master_answers.md` | All answers deduplicated and consolidated by topic (2021-2024) | ~774 |

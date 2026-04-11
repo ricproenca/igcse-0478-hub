@@ -104,8 +104,8 @@ Marking scheme content organized by syllabus structure:
 | 2022 | `markdown/paper1_2022_questions.md` | `markdown/paper1_2022_answers.md` |
 | 2021 | `markdown/paper1_2021_questions.md` | `markdown/paper1_2021_answers.md` |
 
-## Master Consolidated Files
+## Master Consolidated Files ✅
 | File | Description | Lines |
 |------|-------------|-------|
-| `markdown/paper1_master_questions.md` | All questions aggregated by topic/sub-topic/sub-sub-topic (2021-2025) | ~1635 |
+| `markdown/paper1_master_questions.md` | All questions aggregated by topic/sub-topic/sub-sub-topic (2021-2025), with summary statistics (792Q, 2415M) | ~1635 |
 | `markdown/paper1_master_answers.md` | All answers deduplicated and consolidated by topic (2021-2025) | ~1414 |

@@ -1,16 +1,19 @@
 """
 moshikur_scraper.py
 
-Scrapes IGCSE CS revision content from moshikur.com sub-topic pages.
-For each URL in moshikur_urls.py, extracts text, tables, and images,
-and saves clean markdown to study/moshikur/<topic_dir>/<subtopic>.md.
+Scrapes IGCSE CS revision content from moshikur.com.
+Reads URL list from tools/moshikur_urls.py, fetches each page,
+extracts text/tables/images and saves as clean markdown.
 
 Usage:
     pip install -r tools/requirements_scraper.txt
     python3 tools/moshikur_scraper.py
+
+Output: study/moshikur/<topic_folder>/<slug>.md
+        study/moshikur/images/<topic_folder>/<slug>/img_NNN.ext
+        study/moshikur/audit/coverage_audit.md
 """
 
-import os
 import re
 import sys
 import time
@@ -22,18 +25,20 @@ from bs4 import BeautifulSoup
 from markdownify import markdownify as md
 
 # ---------------------------------------------------------------------------
-# Config
+# Paths
 # ---------------------------------------------------------------------------
 
-# Add project root to path so we can import moshikur_urls from tools/
 PROJECT_ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "tools"))
 
 from moshikur_urls import URLS, SYLLABUS, TOPIC_DIRS  # noqa: E402
 
 OUTPUT_DIR = PROJECT_ROOT / "study" / "moshikur"
-IMAGES_DIR = OUTPUT_DIR / "images"
-AUDIT_DIR = OUTPUT_DIR / "audit"
+AUDIT_DIR  = OUTPUT_DIR / "audit"
+
+# ---------------------------------------------------------------------------
+# HTTP config
+# ---------------------------------------------------------------------------
 
 HEADERS = {
     "User-Agent": (
@@ -42,54 +47,98 @@ HEADERS = {
         "Chrome/120.0.0.0 Safari/537.36"
     )
 }
-
-# Seconds to wait between page requests (be polite to the server)
-REQUEST_DELAY = 1.5
-
-# HTML elements to strip before converting to markdown
-STRIP_TAGS = ["nav", "header", "footer", "aside", "script", "style",
-              "noscript", ".widget", ".sidebar", "#sidebar",
-              ".comment-section", "#comments", ".cookie-notice"]
-
-# Content selectors tried in order
-CONTENT_SELECTORS = ["main", "article", ".entry-content", ".post-content",
-                     ".content", "#content", "body"]
+REQUEST_DELAY = 1.5   # seconds between requests
 
 # ---------------------------------------------------------------------------
-# Helpers
+# HTML cleanup selectors
 # ---------------------------------------------------------------------------
 
-def slugify(code: str, title: str) -> str:
-    """Turn '1.1' + 'Number Systems' into '1_1_number_systems'."""
-    slug = code.replace(".", "_") + "_" + title.lower()
-    slug = re.sub(r"[^a-z0-9_]+", "_", slug)
-    return slug.strip("_")
+STRIP_SELECTORS = [
+    "nav", "header", "footer", "aside", "script", "style", "noscript",
+    ".widget", ".sidebar", "#sidebar", ".wp-block-navigation",
+    ".comment-section", "#comments", ".cookie-notice", ".site-header",
+    ".site-footer", ".breadcrumb", ".breadcrumbs", ".sharedaddy",
+    ".post-navigation", ".nav-links", "[class*='related']",
+    "[class*='advertisement']", "[class*='social']",
+]
+
+CONTENT_SELECTORS = [
+    "main", "article", ".entry-content", ".post-content",
+    ".content", "#content", ".page-content",
+]
+
+# ---------------------------------------------------------------------------
+# Folder routing: derive output folder from URL
+# ---------------------------------------------------------------------------
+
+def folder_from_url(url: str) -> str:
+    """
+    Infer which topic folder to use based on the URL path.
+    - /igcse-o-level-cs/ch-01-... or /chapter-1-... → TOPIC_DIRS["1"]
+    - /pseudocode/...                                → pseudocode
+    - anything else                                  → misc
+    """
+    path = urlparse(url).path.lower()
+
+    # Match ch-NN or chapter-N in the URL path
+    m = re.search(r'ch-0*(\d+)|chapter-0*(\d+)', path)
+    if m:
+        n = str(int(m.group(1) or m.group(2)))
+        return TOPIC_DIRS.get(n, f"topic{n}")
+
+    if "/pseudocode" in path:
+        return "pseudocode"
+
+    return "misc"
 
 
-def topic_key(code: str) -> str:
-    """Return the topic number prefix: '1.1' → '1', '10.2' → '10'."""
-    return code.split(".")[0]
+# ---------------------------------------------------------------------------
+# Filename slug: derive from descriptive key
+# ---------------------------------------------------------------------------
+
+def slugify(key: str) -> str:
+    """
+    'CH 01 Data Representation'  → 'ch_01_data_representation'
+    '3.2.1 INPUT Devices'        → '3_2_1_input_devices'
+    '7 PSEUDOCODE ARRAY'         → '7_pseudocode_array'
+    """
+    s = key.lower()
+    s = s.replace(".", "_").replace("/", "_").replace("&", "and")
+    s = re.sub(r"[^a-z0-9_]+", "_", s)
+    return s.strip("_")
 
 
-def get_topic_dir(code: str) -> Path:
-    key = topic_key(code)
-    folder = TOPIC_DIRS.get(key, f"topic{key}")
-    return OUTPUT_DIR / folder
+# ---------------------------------------------------------------------------
+# Syllabus code extraction: try to find a 0478 code in the key string
+# ---------------------------------------------------------------------------
+
+def extract_syllabus_code(key: str, url: str = ""):
+    """
+    '1.1 Number System'   → '1.1'   (from an igcse-o-level-cs URL)
+    '3.2.1 INPUT Devices' → None    (sub-sub-topic, not in SYLLABUS)
+    'CH 01 Data ...'      → None    (chapter overview)
+    'PSEUDOCODE'          → None
+    Pseudocode section pages (e.g. '3.1 If Then Else') are NOT syllabus
+    sub-topics — only pages from /igcse-o-level-cs/ are mapped.
+    """
+    # Pseudocode pages use their own numbering — don't map to 0478 codes
+    if "/pseudocode" in url:
+        return None
+    m = re.match(r'^(\d+\.\d+)(?!\.\d)', key)
+    if m:
+        code = m.group(1)
+        return code if code in SYLLABUS else None
+    return None
 
 
-def get_images_dir(code: str) -> Path:
-    key = topic_key(code)
-    folder = TOPIC_DIRS.get(key, f"topic{key}")
-    return IMAGES_DIR / folder
-
+# ---------------------------------------------------------------------------
+# HTML → Markdown conversion helpers
+# ---------------------------------------------------------------------------
 
 def find_content(soup: BeautifulSoup) -> BeautifulSoup:
-    """Return the best content container found in the page."""
-    # Strip noisy elements first
-    for selector in STRIP_TAGS:
+    for selector in STRIP_SELECTORS:
         for el in soup.select(selector):
             el.decompose()
-
     for selector in CONTENT_SELECTORS:
         el = soup.select_one(selector)
         if el:
@@ -97,28 +146,7 @@ def find_content(soup: BeautifulSoup) -> BeautifulSoup:
     return soup.body or soup
 
 
-def download_image(src: str, base_url: str, dest_dir: Path, index: int) -> str | None:
-    """Download an image and return the relative path from the markdown file."""
-    url = urljoin(base_url, src)
-    parsed = urlparse(url)
-    ext = Path(parsed.path).suffix or ".jpg"
-    filename = f"img_{index:03d}{ext}"
-    dest_path = dest_dir / filename
-
-    try:
-        resp = requests.get(url, headers=HEADERS, timeout=15)
-        resp.raise_for_status()
-        dest_dir.mkdir(parents=True, exist_ok=True)
-        dest_path.write_bytes(resp.content)
-        # Return path relative to OUTPUT_DIR so markdown links work from there
-        return str(dest_path.relative_to(OUTPUT_DIR))
-    except Exception as exc:
-        print(f"    [WARN] Failed to download image {url}: {exc}")
-        return None
-
-
 def html_table_to_markdown(table) -> str:
-    """Convert a BeautifulSoup <table> to a markdown pipe table."""
     rows = []
     for tr in table.find_all("tr"):
         cells = []
@@ -126,38 +154,54 @@ def html_table_to_markdown(table) -> str:
             text = cell.get_text(separator=" ", strip=True)
             text = text.replace("|", "\\|").replace("\n", " ")
             cells.append(text)
-        rows.append("| " + " | ".join(cells) + " |")
+        if cells:
+            rows.append("| " + " | ".join(cells) + " |")
 
     if not rows:
         return ""
 
-    # Insert separator after first row (header)
-    header = rows[0]
-    col_count = header.count("|") - 1
+    col_count = rows[0].count("|") - 1
     separator = "| " + " | ".join(["---"] * col_count) + " |"
-    lines = [rows[0], separator] + rows[1:]
-    return "\n".join(lines)
+    return "\n".join([rows[0], separator] + rows[1:])
 
 
-def scrape_page(code: str, url: str) -> tuple[str, list[str]]:
-    """
-    Fetch a page and return (markdown_content, list_of_downloaded_image_paths).
-    """
-    print(f"  Fetching {url}")
+def download_image(src: str, base_url: str, dest_dir: Path, index: int):
+    url = urljoin(base_url, src)
+    ext = Path(urlparse(url).path).suffix or ".jpg"
+    filename = f"img_{index:03d}{ext}"
+    dest_path = dest_dir / filename
+    try:
+        resp = requests.get(url, headers=HEADERS, timeout=15)
+        resp.raise_for_status()
+        dest_dir.mkdir(parents=True, exist_ok=True)
+        dest_path.write_bytes(resp.content)
+        return str(dest_path.relative_to(OUTPUT_DIR))
+    except Exception as exc:
+        print(f"    [WARN] image skip ({exc})")
+        return None
+
+
+# ---------------------------------------------------------------------------
+# Core scrape
+# ---------------------------------------------------------------------------
+
+def scrape_page(key: str, url: str):
     resp = requests.get(url, headers=HEADERS, timeout=20)
     resp.raise_for_status()
 
     soup = BeautifulSoup(resp.text, "html.parser")
     content = find_content(soup)
-    img_dir = get_images_dir(code)
 
-    # Replace <table> elements with markdown equivalents before markdownify
-    # (markdownify's table support can be inconsistent)
-    for i, table in enumerate(content.find_all("table")):
+    slug = slugify(key)
+    folder = folder_from_url(url)
+    img_dir = OUTPUT_DIR / "images" / folder / slug
+
+    # Tables → markdown before markdownify processes the rest
+    for table in content.find_all("table"):
         md_table = html_table_to_markdown(table)
         table.replace_with(BeautifulSoup(f"\n\n{md_table}\n\n", "html.parser"))
 
-    # Download images and rewrite src attributes
+    # Images → download and rewrite src
     downloaded = []
     for i, img in enumerate(content.find_all("img")):
         src = img.get("src") or img.get("data-src") or ""
@@ -170,10 +214,8 @@ def scrape_page(code: str, url: str) -> tuple[str, list[str]]:
         else:
             img.decompose()
 
-    # Convert HTML → markdown
+    # HTML → markdown
     markdown = md(str(content), heading_style="ATX", bullets="-")
-
-    # Clean up excessive blank lines
     markdown = re.sub(r"\n{3,}", "\n\n", markdown).strip()
 
     return markdown, downloaded
@@ -185,34 +227,48 @@ def scrape_page(code: str, url: str) -> tuple[str, list[str]]:
 
 def main():
     if not URLS:
-        print("No URLs configured in tools/moshikur_urls.py. Add URLs and re-run.")
+        print("No URLs in tools/moshikur_urls.py. Add URLs and re-run.")
         sys.exit(1)
 
-    results = {}  # code → {"status": ..., "file": ..., "images": ...}
+    results = {}  # key → {status, folder, file, syllabus_code, images}
 
-    for code, url in sorted(URLS.items()):
-        title = SYLLABUS.get(code, f"Sub-topic {code}")
-        slug = slugify(code, title)
-        topic_dir = get_topic_dir(code)
+    for key, url in URLS.items():
+        slug = slugify(key)
+        folder = folder_from_url(url)
+        syllabus_code = extract_syllabus_code(key, url)
+        topic_dir = OUTPUT_DIR / folder
         output_file = topic_dir / f"{slug}.md"
 
-        print(f"\n[{code}] {title}")
+        print(f"\n[{key}]")
+        print(f"  → {url}")
 
         try:
-            markdown, images = scrape_page(code, url)
+            markdown, images = scrape_page(key, url)
             topic_dir.mkdir(parents=True, exist_ok=True)
 
-            # Add a heading at the top of the file
-            header = f"# {code} {title}\n\n> Source: {url}\n\n"
+            header = f"# {key}\n\n> Source: {url}\n\n"
             output_file.write_text(header + markdown, encoding="utf-8")
 
             rel_path = str(output_file.relative_to(OUTPUT_DIR))
-            print(f"  ✅ Saved → {rel_path} ({len(images)} image(s))")
-            results[code] = {"status": "scraped", "file": rel_path, "images": images}
+            print(f"  ✅ {rel_path}  ({len(images)} image(s))")
+
+            results[key] = {
+                "status": "scraped",
+                "folder": folder,
+                "file": rel_path,
+                "syllabus_code": syllabus_code,
+                "images": images,
+            }
 
         except Exception as exc:
-            print(f"  ❌ Error: {exc}")
-            results[code] = {"status": "error", "file": None, "error": str(exc)}
+            print(f"  ❌ {exc}")
+            results[key] = {
+                "status": "error",
+                "folder": folder,
+                "file": None,
+                "syllabus_code": syllabus_code,
+                "error": str(exc),
+            }
 
         time.sleep(REQUEST_DELAY)
 
@@ -220,40 +276,69 @@ def main():
     print("\nDone.")
 
 
+# ---------------------------------------------------------------------------
+# Audit report
+# ---------------------------------------------------------------------------
+
 def write_audit(results: dict):
     AUDIT_DIR.mkdir(parents=True, exist_ok=True)
-    audit_file = AUDIT_DIR / "coverage_audit.md"
 
+    # Build a lookup: syllabus_code → list of scraped files
+    coverage = {}  # code → [file, ...]
+    for key, r in results.items():
+        code = r.get("syllabus_code")
+        if code and r["status"] == "scraped":
+            coverage.setdefault(code, []).append(r["file"])
+
+    # ---- Section 1: 0478 syllabus coverage ----
     lines = [
         "# Moshikur Coverage Audit — IGCSE 0478",
         "",
-        "| Sub-topic | Title | Output File | Images | Status |",
-        "|-----------|-------|-------------|--------|--------|",
+        "## 0478 Syllabus Coverage",
+        "",
+        "| Code | Sub-topic | Moshikur Files | Status |",
+        "|------|-----------|----------------|--------|",
     ]
 
-    scraped = 0
+    scraped_count = 0
     for code, title in SYLLABUS.items():
-        if code in results:
-            r = results[code]
-            if r["status"] == "scraped":
-                img_count = len(r.get("images", []))
-                lines.append(
-                    f"| {code} | {title} | `{r['file']}` | {img_count} | ✅ Scraped |"
-                )
-                scraped += 1
-            else:
-                lines.append(
-                    f"| {code} | {title} | — | — | ❌ Error: {r.get('error', '')} |"
-                )
+        files = coverage.get(code, [])
+        if files:
+            file_links = ", ".join(f"`{f}`" for f in files)
+            lines.append(f"| {code} | {title} | {file_links} | ✅ Covered |")
+            scraped_count += 1
         else:
-            lines.append(f"| {code} | {title} | — | — | ⬜ No URL provided |")
+            lines.append(f"| {code} | {title} | — | ⬜ Not mapped |")
 
     total = len(SYLLABUS)
     lines += [
         "",
-        f"**Coverage: {scraped}/{total} sub-topics scraped**",
+        f"**Direct syllabus coverage: {scraped_count}/{total} sub-topics**",
+        "",
     ]
 
+    # ---- Section 2: All scraped pages ----
+    lines += [
+        "## All Scraped Pages",
+        "",
+        "| Key | Folder | File | Images | Syllabus Code | Status |",
+        "|-----|--------|------|--------|---------------|--------|",
+    ]
+
+    for key, r in results.items():
+        img_count = len(r.get("images", []))
+        code_label = r.get("syllabus_code") or "—"
+        if r["status"] == "scraped":
+            lines.append(
+                f"| {key} | {r['folder']} | `{r['file']}` | {img_count} | {code_label} | ✅ |"
+            )
+        else:
+            err = r.get("error", "")[:60]
+            lines.append(
+                f"| {key} | {r['folder']} | — | — | {code_label} | ❌ {err} |"
+            )
+
+    audit_file = AUDIT_DIR / "coverage_audit.md"
     audit_file.write_text("\n".join(lines), encoding="utf-8")
     print(f"\nAudit written → {audit_file.relative_to(PROJECT_ROOT)}")
 

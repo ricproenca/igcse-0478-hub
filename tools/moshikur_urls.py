@@ -114,6 +114,15 @@ SYLLABUS = {
     "11.1": "Writing Pseudocode for Context Scenario",
 }
 
+# Explicit mapping: chapter-level page keys → 0478 sub-topic codes they cover
+# Used by the audit when a single page covers an entire topic.
+CHAPTER_SYLLABUS_MAP = {
+    "CH 07 Algorithm Design & Problem Solving": ["7.1", "7.2", "7.3", "7.4", "7.5", "7.6", "7.7", "7.8"],
+    "CH 08 Programming": ["8.1", "8.2", "8.3"],
+    "CH 09 Databases": ["9.1", "9.2"],
+    "CH 10 Boolean Logic": ["10.1", "10.2"],
+}
+
 # Maps sub-topic code prefix to folder name
 TOPIC_DIRS = {
     "1": "topic1_data_representation",

@@ -22,24 +22,24 @@
 | 6.1 | Automated Systems | `topic6_automated_emerging/6_1_automated_systems.md` | ✅ Covered |
 | 6.2 | Robotics | `topic6_automated_emerging/6_2_robotics.md` | ✅ Covered |
 | 6.3 | Artificial Intelligence | `topic6_automated_emerging/6_3_artificial_intelligence.md` | ✅ Covered |
-| 7.1 | Program Development Life Cycle | — | ⬜ Not mapped |
-| 7.2 | Problem Decomposition | — | ⬜ Not mapped |
-| 7.3 | Algorithm Design Methods | — | ⬜ Not mapped |
-| 7.4 | Standard Methods of Solution | — | ⬜ Not mapped |
-| 7.5 | Validation and Verification | — | ⬜ Not mapped |
-| 7.6 | Testing | — | ⬜ Not mapped |
-| 7.7 | Trace Tables | — | ⬜ Not mapped |
-| 7.8 | Error Identification | — | ⬜ Not mapped |
-| 8.1 | Programming Concepts | — | ⬜ Not mapped |
-| 8.2 | Arrays | — | ⬜ Not mapped |
-| 8.3 | File Handling | — | ⬜ Not mapped |
-| 9.1 | Database Design | — | ⬜ Not mapped |
-| 9.2 | SQL Queries | — | ⬜ Not mapped |
-| 10.1 | Logic Gates | — | ⬜ Not mapped |
-| 10.2 | Logic Circuits | — | ⬜ Not mapped |
+| 7.1 | Program Development Life Cycle | `topic7_algorithm_design/ch_07_algorithm_design_and_problem_solving.md` | ✅ Covered |
+| 7.2 | Problem Decomposition | `topic7_algorithm_design/ch_07_algorithm_design_and_problem_solving.md` | ✅ Covered |
+| 7.3 | Algorithm Design Methods | `topic7_algorithm_design/ch_07_algorithm_design_and_problem_solving.md` | ✅ Covered |
+| 7.4 | Standard Methods of Solution | `topic7_algorithm_design/ch_07_algorithm_design_and_problem_solving.md` | ✅ Covered |
+| 7.5 | Validation and Verification | `topic7_algorithm_design/ch_07_algorithm_design_and_problem_solving.md` | ✅ Covered |
+| 7.6 | Testing | `topic7_algorithm_design/ch_07_algorithm_design_and_problem_solving.md` | ✅ Covered |
+| 7.7 | Trace Tables | `topic7_algorithm_design/ch_07_algorithm_design_and_problem_solving.md` | ✅ Covered |
+| 7.8 | Error Identification | `topic7_algorithm_design/ch_07_algorithm_design_and_problem_solving.md` | ✅ Covered |
+| 8.1 | Programming Concepts | `topic8_programming/ch_08_programming.md` | ✅ Covered |
+| 8.2 | Arrays | `topic8_programming/ch_08_programming.md` | ✅ Covered |
+| 8.3 | File Handling | `topic8_programming/ch_08_programming.md` | ✅ Covered |
+| 9.1 | Database Design | `topic9_databases/ch_09_databases.md` | ✅ Covered |
+| 9.2 | SQL Queries | `topic9_databases/ch_09_databases.md` | ✅ Covered |
+| 10.1 | Logic Gates | `topic10_boolean_logic/ch_10_boolean_logic.md` | ✅ Covered |
+| 10.2 | Logic Circuits | `topic10_boolean_logic/ch_10_boolean_logic.md` | ✅ Covered |
 | 11.1 | Writing Pseudocode for Context Scenario | — | ⬜ Not mapped |
 
-**Direct syllabus coverage: 18/34 sub-topics**
+**Direct syllabus coverage: 33/34 sub-topics**
 
 ## All Scraped Pages
 

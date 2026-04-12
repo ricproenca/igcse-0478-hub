@@ -31,7 +31,7 @@ from markdownify import markdownify as md
 PROJECT_ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "tools"))
 
-from moshikur_urls import URLS, SYLLABUS, TOPIC_DIRS  # noqa: E402
+from moshikur_urls import URLS, SYLLABUS, TOPIC_DIRS, CHAPTER_SYLLABUS_MAP  # noqa: E402
 
 OUTPUT_DIR = PROJECT_ROOT / "study" / "moshikur"
 AUDIT_DIR  = OUTPUT_DIR / "audit"
@@ -286,9 +286,15 @@ def write_audit(results: dict):
     # Build a lookup: syllabus_code → list of scraped files
     coverage = {}  # code → [file, ...]
     for key, r in results.items():
+        if r["status"] != "scraped":
+            continue
+        # Direct 1:1 mapping (e.g. "1.1 Number System" → "1.1")
         code = r.get("syllabus_code")
-        if code and r["status"] == "scraped":
+        if code:
             coverage.setdefault(code, []).append(r["file"])
+        # Chapter-level pages that cover multiple sub-topics
+        for covered_code in CHAPTER_SYLLABUS_MAP.get(key, []):
+            coverage.setdefault(covered_code, []).append(r["file"])
 
     # ---- Section 1: 0478 syllabus coverage ----
     lines = [

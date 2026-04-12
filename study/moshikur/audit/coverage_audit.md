@@ -56,12 +56,12 @@
 | CH 03 Hardware | topic3_hardware | `topic3_hardware/ch_03_hardware.md` | 0 | — | ✅ |
 | 3.1 Computer Architecture | topic3_hardware | `topic3_hardware/3_1_computer_architecture.md` | 0 | 3.1 | ✅ |
 | 3.2 Input/Output Devices | topic3_hardware | `topic3_hardware/3_2_input_output_devices.md` | 0 | 3.2 | ✅ |
-| 3.2.1 INPUT Devices | topic3_hardware | — | — | — | ❌ 429 or not scraped |
+| 3.2.1 INPUT Devices | topic3_hardware | `topic3_hardware/3_2_1_input_devices.md` | 12 | — | ✅ |
 | 3.2.2 Output Devices | topic3_hardware | `topic3_hardware/3_2_2_output_devices.md` | 0 | — | ✅ |
 | 3.2.3 Sensors | topic3_hardware | `topic3_hardware/3_2_3_sensors.md` | 0 | — | ✅ |
 | 3.3 Storage Devices and Media | topic3_hardware | `topic3_hardware/3_3_storage_devices_and_media.md` | 0 | 3.3 | ✅ |
 | 3.4 Network Concepts | topic3_hardware | `topic3_hardware/3_4_network_concepts.md` | 0 | 3.4 | ✅ |
-| CH 04 Software | topic4_software | — | — | — | ❌ 429 or not scraped |
+| CH 04 Software | topic4_software | `topic4_software/ch_04_software.md` | 0 | — | ✅ |
 | 4.1 Types of software and interrupts | topic4_software | `topic4_software/4_1_types_of_software_and_interrupts.md` | 0 | 4.1 | ✅ |
 | 4.2 Types of programming language, translators and integrated development environments (IDEs) | topic4_software | `topic4_software/4_2_types_of_programming_language_translators_and_integrated_development_environments_ides.md` | 0 | 4.2 | ✅ |
 | CH 05 The Internet and Its Uses | topic5_internet_and_uses | `topic5_internet_and_uses/ch_05_the_internet_and_its_uses.md` | 0 | — | ✅ |
@@ -76,10 +76,10 @@
 | CH 08 Programming | topic8_programming | `topic8_programming/ch_08_programming.md` | 0 | — | ✅ |
 | CH 09 Databases | topic9_databases | `topic9_databases/ch_09_databases.md` | 0 | — | ✅ |
 | CH 10 Boolean Logic | topic10_boolean_logic | `topic10_boolean_logic/ch_10_boolean_logic.md` | 0 | — | ✅ |
-| PSEUDOCODE | pseudocode | — | — | — | ❌ 429 or not scraped |
-| Introduction | pseudocode | — | — | — | ❌ 429 or not scraped |
+| PSEUDOCODE | pseudocode | `pseudocode/pseudocode.md` | 0 | — | ✅ |
+| Introduction | pseudocode | `pseudocode/introduction.md` | 1 | — | ✅ |
 | FlowchartS | topic7_algorithm_design | `topic7_algorithm_design/flowcharts.md` | 0 | — | ✅ |
-| 1 PSEUDOCODE Variables and Data Types | pseudocode | — | — | — | ❌ 429 or not scraped |
+| 1 PSEUDOCODE Variables and Data Types | pseudocode | `pseudocode/1_pseudocode_variables_and_data_types.md` | 1 | — | ✅ |
 | 2 PSEUDOCODE Assignment, Input & Output | pseudocode | `pseudocode/2_pseudocode_assignment_input_and_output.md` | 0 | — | ✅ |
 | 3 CONDITIONAL STATEMENTS | pseudocode | `pseudocode/3_conditional_statements.md` | 0 | — | ✅ |
 | 3.1 Pseudocode If Then Else | pseudocode | `pseudocode/3_1_pseudocode_if_then_else.md` | 0 | — | ✅ |

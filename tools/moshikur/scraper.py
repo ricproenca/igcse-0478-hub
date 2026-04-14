@@ -1,17 +1,17 @@
 """
-moshikur_scraper.py
+scraper.py
 
 Scrapes IGCSE CS revision content from moshikur.com.
-Reads URL list from tools/moshikur_urls.py, fetches each page,
+Reads URL list from tools/moshikur/urls.py, fetches each page,
 extracts text/tables/images and saves as clean markdown.
 
 Usage:
-    pip install -r tools/requirements_scraper.txt
-    python3 tools/moshikur_scraper.py
+    pip install -r tools/moshikur/requirements.txt
+    python3 tools/moshikur/scraper.py
 
-Output: study/moshikur/<topic_folder>/<slug>.md
-        study/moshikur/images/<topic_folder>/<slug>/img_NNN.ext
-        study/moshikur/audit/coverage_audit.md
+Output: docs/moshikur/<topic_folder>/<slug>.md
+        docs/moshikur/images/<topic_folder>/<slug>/img_NNN.ext
+        docs/moshikur/audit/coverage_audit.md
 """
 
 import re
@@ -28,12 +28,13 @@ from markdownify import markdownify as md
 # Paths
 # ---------------------------------------------------------------------------
 
-PROJECT_ROOT = Path(__file__).parent.parent
-sys.path.insert(0, str(PROJECT_ROOT / "tools"))
+# tools/moshikur/scraper.py → parent = tools/moshikur → parent = tools → parent = project root
+PROJECT_ROOT = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(Path(__file__).parent))
 
-from moshikur_urls import URLS, SYLLABUS, TOPIC_DIRS, CHAPTER_SYLLABUS_MAP  # noqa: E402
+from urls import URLS, SYLLABUS, TOPIC_DIRS, CHAPTER_SYLLABUS_MAP  # noqa: E402
 
-OUTPUT_DIR = PROJECT_ROOT / "study" / "moshikur"
+OUTPUT_DIR = PROJECT_ROOT / "docs" / "moshikur"
 AUDIT_DIR  = OUTPUT_DIR / "audit"
 
 # ---------------------------------------------------------------------------
@@ -80,7 +81,6 @@ def folder_from_url(url: str) -> str:
     """
     path = urlparse(url).path.lower()
 
-    # Match ch-NN or chapter-N in the URL path
     m = re.search(r'ch-0*(\d+)|chapter-0*(\d+)', path)
     if m:
         n = str(int(m.group(1) or m.group(2)))
@@ -109,7 +109,7 @@ def slugify(key: str) -> str:
 
 
 # ---------------------------------------------------------------------------
-# Syllabus code extraction: try to find a 0478 code in the key string
+# Syllabus code extraction
 # ---------------------------------------------------------------------------
 
 def extract_syllabus_code(key: str, url: str = ""):
@@ -118,10 +118,8 @@ def extract_syllabus_code(key: str, url: str = ""):
     '3.2.1 INPUT Devices' → None    (sub-sub-topic, not in SYLLABUS)
     'CH 01 Data ...'      → None    (chapter overview)
     'PSEUDOCODE'          → None
-    Pseudocode section pages (e.g. '3.1 If Then Else') are NOT syllabus
-    sub-topics — only pages from /igcse-o-level-cs/ are mapped.
+    Pseudocode pages use their own numbering — not mapped to 0478 codes.
     """
-    # Pseudocode pages use their own numbering — don't map to 0478 codes
     if "/pseudocode" in url:
         return None
     m = re.match(r'^(\d+\.\d+)(?!\.\d)', key)
@@ -196,12 +194,10 @@ def scrape_page(key: str, url: str):
     folder = folder_from_url(url)
     img_dir = OUTPUT_DIR / "images" / folder / slug
 
-    # Tables → markdown before markdownify processes the rest
     for table in content.find_all("table"):
         md_table = html_table_to_markdown(table)
         table.replace_with(BeautifulSoup(f"\n\n{md_table}\n\n", "html.parser"))
 
-    # Images → download and rewrite src
     downloaded = []
     for i, img in enumerate(content.find_all("img")):
         src = img.get("src") or img.get("data-src") or ""
@@ -214,7 +210,6 @@ def scrape_page(key: str, url: str):
         else:
             img.decompose()
 
-    # HTML → markdown
     markdown = md(str(content), heading_style="ATX", bullets="-")
     markdown = re.sub(r"\n{3,}", "\n\n", markdown).strip()
 
@@ -227,10 +222,10 @@ def scrape_page(key: str, url: str):
 
 def main():
     if not URLS:
-        print("No URLs in tools/moshikur_urls.py. Add URLs and re-run.")
+        print("No URLs in tools/moshikur/urls.py. Add URLs and re-run.")
         sys.exit(1)
 
-    results = {}  # key → {status, folder, file, syllabus_code, images}
+    results = {}
 
     for key, url in URLS.items():
         slug = slugify(key)
@@ -283,20 +278,16 @@ def main():
 def write_audit(results: dict):
     AUDIT_DIR.mkdir(parents=True, exist_ok=True)
 
-    # Build a lookup: syllabus_code → list of scraped files
-    coverage = {}  # code → [file, ...]
+    coverage = {}
     for key, r in results.items():
         if r["status"] != "scraped":
             continue
-        # Direct 1:1 mapping (e.g. "1.1 Number System" → "1.1")
         code = r.get("syllabus_code")
         if code:
             coverage.setdefault(code, []).append(r["file"])
-        # Chapter-level pages that cover multiple sub-topics
         for covered_code in CHAPTER_SYLLABUS_MAP.get(key, []):
             coverage.setdefault(covered_code, []).append(r["file"])
 
-    # ---- Section 1: 0478 syllabus coverage ----
     lines = [
         "# Moshikur Coverage Audit — IGCSE 0478",
         "",
@@ -323,7 +314,6 @@ def write_audit(results: dict):
         "",
     ]
 
-    # ---- Section 2: All scraped pages ----
     lines += [
         "## All Scraped Pages",
         "",

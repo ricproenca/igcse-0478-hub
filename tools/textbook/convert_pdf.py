@@ -30,8 +30,8 @@ SKIP_LINE_RE = re.compile(
 )
 # Matches "## **7**" (bare number) or "## **9** Databases" (chapter TOC entry)
 CHAPTER_NUM_RE = re.compile(r"^#{1,3}\s+\*{0,2}\d{1,2}\*{0,2}(\s+\w.*)?$")
-# Duplicate chapter title line (no section number)
-CHAPTER_TITLE_DUP_RE = re.compile(r"^#{1,3}\s+\*{0,2}Algorithm design and problem solving\*{0,2}\s*$", re.IGNORECASE)
+# Built dynamically per chapter in convert() — placeholder replaced at runtime
+CHAPTER_TITLE_DUP_RE: re.Pattern = re.compile(r"(?!)")  # never matches by default
 PAGE_NUM_RE = re.compile(r"^\d{2,4}\s*$")
 RUNNING_HEADER_RE = re.compile(r"^_[^_]+_\s*$")
 # Bold chapter-number running headers, e.g. "**8 Programming**" or "**8** Programming"
@@ -76,7 +76,13 @@ def remap_images_in_line(line: str, name_map: dict[str, str], img_rel: str) -> s
     return result
 
 
-def postprocess(md: str, name_map: dict[str, str], img_rel: str) -> str:
+def postprocess(md: str, name_map: dict[str, str], img_rel: str, chapter_title: str = "") -> str:
+    # Build dynamic duplicate-title pattern from the detected chapter title
+    title_dup_re = re.compile(
+        r"^#{1,3}\s+\*{0,2}" + re.escape(chapter_title) + r"\*{0,2}\s*$",
+        re.IGNORECASE,
+    ) if chapter_title else CHAPTER_TITLE_DUP_RE
+
     # Remove OCR'd picture text blocks
     md = PICTURE_TEXT_RE.sub("", md)
 
@@ -109,7 +115,7 @@ def postprocess(md: str, name_map: dict[str, str], img_rel: str) -> str:
             continue
 
         # Skip duplicate chapter title heading
-        if CHAPTER_TITLE_DUP_RE.match(stripped):
+        if title_dup_re.match(stripped):
             i += 1
             continue
 
@@ -240,7 +246,7 @@ def convert(pdf_path: Path, md_path: Path) -> None:
             idx += 1
 
     img_rel = f"images/{stem}"
-    body = postprocess(raw_md, name_map, img_rel)
+    body = postprocess(raw_md, name_map, img_rel, chapter_title)
 
     header = (
         f"# CAIE Computer Science IGCSE — Chapter {chapter_num}: {chapter_title}\n\n"

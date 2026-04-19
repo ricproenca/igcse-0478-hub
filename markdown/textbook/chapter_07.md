@@ -107,7 +107,6 @@ The completed program or set of programs is run many times with different sets o
 
 **259** 
 
-**7 Algorithm design And problem solving** 
 
 ## 7.2 Computer systems, sub-systems and decomposition
 
@@ -182,7 +181,6 @@ Structure diagrams can be used to show top-down design in a diagrammatic form. *
 - **Figure 7.2** Basic structure diagram 
 
 
-**7 Algorithm design And problem solving** 
 
 
 
@@ -270,7 +268,6 @@ The same flowchart symbol is used to show the input of data and output of inform
 - **Figure 7.8** Decision symbol 
 
 
-**7 Algorithm design And problem solving** 
 
 ## **Flow lines** 
 
@@ -343,7 +340,6 @@ Examples of pseudocode assignment statements:
 **Cost** has the value 10 **Price** has the value 20 **Tax** has the value 2.4 **SellingPrice** has the value 22.4 **Gender** has the value **M Chosen** has the value **False** 
 
 
-**7 Algorithm design And problem solving** 
 
 ## **Activity 7.3** 
 
@@ -403,7 +399,6 @@ IF ((Height > 1) OR (Weight > 20)) AND (Age < 70) AND (Age > 5) THEN OUTPUT "You
 
 
 
-**7 Algorithm design And problem solving** 
 
 Have a look at the algorithm below that checks if a percentage mark is valid and whether it is a pass or a fail. This makes use of two **IF** statements; the second **IF** statement is part of the first **ELSE** path. This is called a **nested IF** . 
 
@@ -457,7 +452,6 @@ A variable is set up, with a start value and an end value, this variable is incr
 Counter starts at 1 and FOR Counter ← 1 TO 10 finishes at 10 OUTPUT "Enter Name of Student " INPUT StudentName[Counter] Array (see Chapter 8) items StudentName[1] NEXT to StudentName[10] have data input 
 
 
-**7 Algorithm design And problem solving** 
 
 ## **REPEAT … UNTIL loop** 
 
@@ -517,7 +511,6 @@ What would be output if the numbers 7 and 18 were input?
 
 
 
-**7 Algorithm design And problem solving** 
 
 ## 7.4 Standard methods of solution
 
@@ -578,7 +571,6 @@ Calls data from an array (see Chapter 8) called StudentMark)
 
 
 
-**7 Algorithm design And problem solving** 
 
 If the largest and smallest values are not known, an alternative method is to set the maximum and minimum values to the first item in the list. 
 
@@ -621,7 +613,6 @@ Lists can be more useful if the items are sorted in a meaningful order. For exam
 This method of sorting is called a **bubble sort** . Each element is compared with the next element and swapped if the elements are in the wrong order, starting from the first element and finishing with next-to-last element. Once it reaches the end of the list, we can be sure that the last element is now in the correct place. However, other items in the list may still be out of order. Each element in the list is compared again apart from the last one because we know the final element is in the correct place. This continues to repeat until there is only one element left to check or no swaps are made. 
 
 
-**7 Algorithm design And problem solving** 
 
 For example, the bubble sort algorithm can be used to sort a list of ten temperatures stored in the array, **Temperature[]** , into ascending order. It could be written in pseudocode as: 
 
@@ -676,7 +667,6 @@ REPEAT INPUT Password IF LENGTH(Password) <> 8 THEN OUTPUT "Your password must b
 - **»** _or_ that the data entered is a reasonable number of characters, for example, a family name could be between two and thirty characters inclusive so that names with one character or thirty-one or more characters would be rejected. 
 
 
-**7 Algorithm design And problem solving** 
 
 OUTPUT "Please enter your family name " FamilyName has a data type of string REPEAT and LENGTH is the INPUT FamilyName pseudocode operation that returns a whole IF LENGTH(FamilyName) > 30 OR LENGTH(FamilyName) < 2 number showing the THEN number of characters OUTPUT "Too short or too long, in the string please re-enter " ENDIF UNTIL LENGTH(FamilyName) <= 30 AND LENGTH(FamilyName) >= 2 
 
@@ -814,7 +804,6 @@ Provide a more realistic set of test data and its expected result.
 Solutions also need to be tested to prove that they do **not** do what they are supposed not to do. In order to do this, test data should be chosen that would be rejected by the solution as not suitable, if the solution is working properly. This type of test data is called **abnormal test data** . (It is also sometimes called **erroneous test data** .) 
 
 
-**7 Algorithm design And problem solving** 
 
 For example, erroneous/abnormal data for our algorithm to find the average percentage marks from ten end of term examinations could be: 
 
@@ -894,7 +883,6 @@ Test data is then used to dry run the flowchart and record the results on the tr
 Test data: 9, 7, 3, 12, 6, 4, 15, 2, 8, 5 
 
 
-**7 Algorithm design And problem solving** 
 
 ## ▼ **Table 7.4** Completed trace table for flowchart 
 
@@ -968,7 +956,6 @@ Your completed trace table for Activity 7.14 should look like this:
 There is an error as the smallest number, 110, has not been identified. 
 
 
-**7 Algorithm design And problem solving** 
 
 ## **Activity 7.15** 
 
@@ -1001,7 +988,6 @@ In order to work for any set of numbers, the algorithm needs to be re-written to
 ▲ **Figure 7.17** A much better algorithm 
 
 
-**7 Algorithm design And problem solving** 
 
 ## **Activity 7.17** 
 
@@ -1067,7 +1053,6 @@ Tickets are sold for a concert at $20 each. If 10 tickets are bought then the di
 - **a** Use pseudocode to write the algorithm to calculate the cost of buying a given number of tickets. 
 
 
-**7 Algorithm design And problem solving** 
 
 **b** Explain how you would test your algorithm. 
 
@@ -1101,7 +1086,6 @@ OUTPUT "Enter Student", StudentNumber, "'s mark for ", SubjectName
 INPUT Mark UNTIL Mark < 101 AND Mark > -1 IF Mark < OverallLowest THEN OverallLowest ← Mark IF Mark < SubjectLowest THEN SubjectLowest ← Mark IF Mark > OverallHighest THEN OverallHighest ← Mark IF Mark > SubjectHighest THEN SubjectHighest ← Mark OverallTotal ← OverallTotal + Mark SubjectTotal ← SubjectTotal + Mark NEXT StudentNumber SubjectAverage ← SubjectTotal / 600 OUTPUT SubjectName OUTPUT "Average mark is ", SubjectAverage OUTPUT "Highest Mark is ", SubjectHighest **Find out more** OUTPUT "Lowest Mark is ", SubjectLowest Programming is NEXT Test covered in Chapter 8. OverallAverage ← OverallTotal / 2400 When you have started your programming, OUTPUT "Overall Average is ", OverallAverage write and test OUTPUT "Overall Highest Mark is ", OverallHighest programs for Examples 1 and 2. OUTPUT "Overall Lowest Mark is ", OverallLowest More practice on writing algorithms will **b** For the algorithm to be tested by dry running, I would reduce the number of be given in Chapter 8. students to 5 and the number of subjects to 2. 
 
 
-**7 Algorithm design And problem solving** 
 
 ## **Activity 7.19** 
 
@@ -1187,7 +1171,6 @@ In this chapter, you have learnt about:
 - ✔ writing, amending and identifying errors in algorithms. 
 
 
-**7 Algorithm design And problem solving** 
 
 ## **Key terms used throughout this chapter** 
 
@@ -1265,12 +1248,10 @@ In this chapter, you have learnt about:
 
 - **4** Explain what is meant by validation and verification. [4] 
 
-**5** The following data is to be entered onto an online form: – Name – Date of birth – Password – Phone number. 
 
 For each item state, with reasons, the validation and verification checks that should be used on the input data. [8] 
 
 
-**7 Algorithm design And problem solving** 
 
 - **6** The following algorithm, shown as a flowchart, checks the size of a consignment of ten parcels. The dimensions of each parcel are input in centimetres. 
 
@@ -1313,7 +1294,6 @@ Counter ← 1 FOR Counter ← 1 TO 10 REPEAT OUTPUT "Enter a positive whole numb
 - **8** This pseudocode algorithm inputs two non-zero numbers and a sign, and then performs the calculation shown by the sign. An input of zero for the first number terminates the process. 
 
 
-**7 Algorithm design And problem solving** 
 
 INPUT Number1, Number2, Sign WHILE Number <> 0 IF Sign = '+' THEN Answer ← Number1 + Number2 ENDIF IF Sign = '-' THEN Answer ← Number1 - Number2 ENDIF IF Sign = '*' THEN Answer ← Number1 * Number2 ENDIF IF Sign = '/' THEN Answer ← Number1 / Number2 ENDIF IF Sign <> '/' AND Sign <> '*' AND Sign <> '-' AND Sign <> '+' THEN Answer ← 0 ENDIF IF Answer <> 0 THEN OUTPUT Answer ENDIF INPUT Number1, Number2, Sign 
 

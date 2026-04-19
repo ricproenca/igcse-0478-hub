@@ -33,6 +33,8 @@ CHAPTER_NUM_RE = re.compile(r"^#{1,3}\s+\*{0,2}\d{1,2}\*{0,2}\s*$")
 CHAPTER_TITLE_DUP_RE = re.compile(r"^#{1,3}\s+\*{0,2}Algorithm design and problem solving\*{0,2}\s*$", re.IGNORECASE)
 PAGE_NUM_RE = re.compile(r"^\d{2,4}\s*$")
 RUNNING_HEADER_RE = re.compile(r"^_[^_]+_\s*$")
+# Bold chapter-number running headers, e.g. "**8 Programming**" or "**8** Programming"
+BOLD_CHAPTER_HDR_RE = re.compile(r"^\*{1,2}\d{1,2}\*{0,2}\s+\w")
 PICTURE_TEXT_RE = re.compile(
     r"\*{0,2}-{5} Start of picture text -{5}\*{0,2}.*?\*{0,2}-{5} End of picture text -{5}\*{0,2}<br>\n?",
     re.DOTALL,
@@ -90,8 +92,8 @@ def postprocess(md: str, name_map: dict[str, str], img_rel: str) -> str:
             i += 1
             continue
 
-        # Skip running headers (_Section name_)
-        if RUNNING_HEADER_RE.match(stripped):
+        # Skip running headers (_Section name_) and bold chapter number headers
+        if RUNNING_HEADER_RE.match(stripped) or BOLD_CHAPTER_HDR_RE.match(stripped):
             i += 1
             continue
 

@@ -28,7 +28,8 @@ SKIP_LINE_RE = re.compile(
     r")\*{0,2}\s*$",
     re.IGNORECASE,
 )
-CHAPTER_NUM_RE = re.compile(r"^#{1,3}\s+\*{0,2}\d{1,2}\*{0,2}\s*$")
+# Matches "## **7**" (bare number) or "## **9** Databases" (chapter TOC entry)
+CHAPTER_NUM_RE = re.compile(r"^#{1,3}\s+\*{0,2}\d{1,2}\*{0,2}(\s+\w.*)?$")
 # Duplicate chapter title line (no section number)
 CHAPTER_TITLE_DUP_RE = re.compile(r"^#{1,3}\s+\*{0,2}Algorithm design and problem solving\*{0,2}\s*$", re.IGNORECASE)
 PAGE_NUM_RE = re.compile(r"^\d{2,4}\s*$")

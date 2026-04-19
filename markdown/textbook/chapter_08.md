@@ -114,7 +114,6 @@ The Console. ReadKey() will ensure that the output remains on screen.
 - **Figure 8.6** Setting up the class for Java 
 
 
-## **8 Programming** 
 
 
 ![](images/chapter_08/img_008.png)

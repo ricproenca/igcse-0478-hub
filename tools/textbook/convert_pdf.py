@@ -22,6 +22,7 @@ SKIP_LINE_RE = re.compile(
     r"^#{1,3}\s+\*{0,2}(?:"
     r"SECTION \d+"
     r"|Algorithms,\s*programming\s*and\s*logic"
+    r"|Computer\s*systems"
     r"|Chapters?"
     r"|programming"
     r"|logic"
